@@ -21,10 +21,10 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 connection = psycopg2.connect(user="postgres",
-												  password="password123",
-												  host="127.0.0.1",
-												  port="5432",
-												  database="Lab1")
+                                              password="password123",
+                                              host="127.0.0.1",
+                                              port="5433",
+                                              database="Lab1")
 
 @app.route("/")
 def index():
@@ -84,13 +84,20 @@ def login():
 @app.route("/home.html", methods =["GET", "POST"])
 def home(): 
 	
-	criteria = str(request.form.get("criteria"))
+	#criteria = str(request.form.get("criteria"))
 	
-	try:
-		cursor = connection.cursor()
-		query = "SELECT * FROM books WHERE isbn LIKE '%" + criteria + "%' OR title LIKE '%" + criteria + "%' OR author LIKE '%" + criteria + "%' OR year = " + criteria
-		cursor.execute(query)
-		record = cursor.fetchall()
+	#try:
+		#cursor = connection.cursor()
+		#query = "SELECT * FROM books WHERE isbn LIKE '%" + criteria + "%' OR title LIKE '%" + criteria + "%' OR author LIKE '%" + criteria + "%' OR year = " + criteria
+		#cursor.execute(query)
+		#record = cursor.fetchall()
 	
 
-	return render_template('home.html', username=session["username"], data=record)
+	return render_template('home.html')
+
+
+@app.route("/logout.html", methods=["GET", "POST"])
+def logout():
+
+	return render_template('logout.html')
+
