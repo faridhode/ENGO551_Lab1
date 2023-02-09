@@ -1,6 +1,6 @@
 import os, psycopg2
 #from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, session, render_template, request, redirect
+from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -99,12 +99,27 @@ def home():
 	return render_template("home.html", rows=rows)
 
 
-
 @app.route("/logout.html", methods=["GET", "POST"])
 def logout():
 
 	return render_template('logout.html')
 
+@app.route("/book/<string:isbn>")
+def book(isbn):
+
+	cursor = connection.cursor()
+
+	# displaying the selected books info
+	query = f"SELECT * FROM books WHERE isbn='{isbn}'"
+	cursor.execute(query)
+	book = cursor.fetchone()
+
+	# displaying all reviews for the book
+	review_input = f"SELECT review FROM reviews WHERE isbn='{isbn}'"
+	cursor.execute(review_input)
+	reviews = cursor.fetchall()
+
+	return render_template("book.html", book=book, reviews=reviews)
 
 
 if __name__=="__main__":
