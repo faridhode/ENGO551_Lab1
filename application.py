@@ -70,7 +70,7 @@ def login():
 				if record[0][1] == pword:
 					session["username"] = record[0][0]
 					
-					return redirect("/home.html")
+					return render_template("/home.html", uname = uname)
 				else:
 					return "Incorrect username or password"
 			
@@ -82,22 +82,31 @@ def login():
 	return render_template('login.html')
 
 @app.route("/home.html", methods =["GET", "POST"])
-def home(): 
-	
-	#criteria = str(request.form.get("criteria"))
-	
-	#try:
-		#cursor = connection.cursor()
-		#query = "SELECT * FROM books WHERE isbn LIKE '%" + criteria + "%' OR title LIKE '%" + criteria + "%' OR author LIKE '%" + criteria + "%' OR year = " + criteria
-		#cursor.execute(query)
-		#record = cursor.fetchall()
-	
+def home():
+	find = request.args.get("find")
+	cursor = connection.cursor()
 
-	return render_template('home.html')
+	if find:
+		query = f"SELECT * FROM books WHERE title ILIKE '%{find}%' or isbn ILIKE '%{find}%' or author ILIKE '%{find}%'"
+		cursor.execute(query)
+
+	else:
+		query = "SELECT * FROM books"
+		cursor.execute(query)
+
+	rows = cursor.fetchall()
+
+	return render_template("home.html", rows=rows)
+
 
 
 @app.route("/logout.html", methods=["GET", "POST"])
 def logout():
 
 	return render_template('logout.html')
+
+
+
+if __name__=="__main__":
+	app.run(debug=True)
 
