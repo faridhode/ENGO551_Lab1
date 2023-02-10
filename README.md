@@ -6,7 +6,11 @@ Farid Hode Corona
 
 Ajay Singh Saini
 
-Hello, we will be describing how our web application works. The first step, is to create our database tables using the following SQL Queries in pgAdmin4:
+Hello, we will be describing how our web application works. 
+
+You can also view the youtube video describing the webpage functionality here: https://www.youtube.com/watch?v=zTOQQRYYff0&ab_channel=AjaySaini
+
+The first step, is to create our database tables using the following SQL Queries in pgAdmin4:
 
 -- Table: public.books -- DROP TABLE public.books; CREATE TABLE public.books ( isbn character varying(13) COLLATE pg_catalog."default" NOT NULL, title character varying(255) COLLATE pg_catalog."default", author character varying(255) COLLATE pg_catalog."default", year integer, CONSTRAINT books_isbn_key UNIQUE (isbn) ) WITH ( OIDS = FALSE ) TABLESPACE pg_default; ALTER TABLE public.books OWNER to postgres;
 
