@@ -51,7 +51,7 @@ matching results. If the user typed in only part of a title, ISBN, or author nam
 
 REQUIREMENT FOUR
 
-The returining list of possible matching results allows the user to click on the ISBN code of any book and be directed to its book page. All details of 
+The returning list of possible matching results allows the user to click on the ISBN code of any book and be directed to its book page. All details of 
 the book are present: Title, Author, ISBN code, and Publication Year.
 Any reviews left by users are also displayed underneath the book details. Underneath all existing reviews, other users can add a review of their own.
 
