@@ -8,7 +8,7 @@ Ajay Singh Saini
 
 Hello, we will be describing how our web application works. 
 
-You can also view the youtube video describing the webpage functionality here: https://www.youtube.com/watch?v=zTOQQRYYff0&ab_channel=AjaySaini
+You can also view the youtube video describing the webpage functionality here: https://youtu.be/zTOQQRYYff0
 
 The first step, is to create our database tables using the following SQL Queries in pgAdmin4:
 
