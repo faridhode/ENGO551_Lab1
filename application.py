@@ -104,7 +104,7 @@ def logout():
 
 	return render_template('logout.html')
 
-@app.route("/book/<string:isbn>", methods=["GET", "POST"])
+@app.route("/book/<string:isbn>")
 def book(isbn):
 
 	cursor = connection.cursor()
@@ -114,25 +114,14 @@ def book(isbn):
 	cursor.execute(query)
 	book = cursor.fetchone()
 
-	# dispplaying the selected books reviews
-
-	query = f"SELECT * FROM reviews WHERE isbn='{isbn}'"
-	cursor.execute(query)
+	# displaying all reviews for the book
+	review_input = f"SELECT review FROM reviews WHERE isbn='{isbn}'"
+	cursor.execute(review_input)
 	reviews = cursor.fetchall()
-	
-	if request.method == "POST":
-		user = request.form.get("user")
-		review = request.form.get("review")
-		query = f"INSERT INTO reviews (isbn, review, username) VALUES ('{isbn}', '{review}', '{user}')"
-		cursor.execute(query)
-		connection.commit()
 
-	
-
-	return render_template("book.html", book=book, reviews = reviews)
+	return render_template("book.html", book=book, reviews=reviews)
 
 
 if __name__=="__main__":
 	app.run(debug=True)
-
 
