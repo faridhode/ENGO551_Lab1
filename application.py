@@ -23,7 +23,7 @@ db = scoped_session(sessionmaker(bind=engine))
 connection = psycopg2.connect(user="postgres",
                                               password="password123",
                                               host="127.0.0.1",
-                                              port="5433",
+                                              port="5432",
                                               database="Lab1")
 
 @app.route("/")
@@ -87,7 +87,16 @@ def home():
 	cursor = connection.cursor()
 
 	if find:
-		query = f"SELECT * FROM books WHERE title ILIKE '%{find}%' or isbn ILIKE '%{find}%' or author ILIKE '%{find}%'"
+		
+		query = f"""SELECT * FROM books WHERE title ILIKE '%{find}%' or isbn ILIKE '%{find}%' or author ILIKE '%{find}%'"""
+		
+		if len(find) == 4:
+			try:
+				intfind = int(find)
+				query = f"SELECT * FROM books WHERE year = {intfind}"
+			except:
+				intfind = 0
+		
 		cursor.execute(query)
 
 	else:
